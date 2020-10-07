@@ -29,3 +29,9 @@ class ListNode:
         self.val = x
         self.next = None
 
+if __name__ == '__main__':
+    node1 = ListNode(1)
+    node1.next = ListNode(2)
+    node1.next.next = ListNode(3)
+    delete_node(node1, ListNode(4))
+    print(node1.val, node1.next.val)
