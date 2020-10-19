@@ -16,35 +16,36 @@
 '''
 
 
-def pop_order(push_stack, pop_stack):
+def is_order(o_stack, i_stack):
+    # o_stack  出栈   i_stack 入栈
 
-    if not push_stack or not pop_stack:
+    # 如果出栈入栈不为空
+    if not o_stack or not i_stack:
         return False
 
     stack = []
 
-    while pop_stack:    #
-        pop_val = pop_stack[0]    # 弹出栈第一个值
+    while i_stack:
 
-        if stack and stack[-1] == pop_val:
-            stack.pop()
-            pop_stack.pop(0)
-        else:
-            # 入栈 元素 进入 辅助栈
-            while push_stack:
-                if push_stack[0] != pop_val:    # 入栈元素 不等于 出栈元素
-                    stack.append(push_stack.pop(0))    # 将入栈元素 存入 辅助栈中
-                else:    # 如果相等， 那么就直接将 入栈 和 出栈的元素删除。
-                    push_stack.pop(0)
-                    pop_stack.pop(0)
-                    break
+        i_val = i_stack[0]
 
-        if not push_stack:    # 如果栈不为空，那么
+        #
+        while o_stack:
+            if o_stack[0] == i_val:
+                o_stack.pop(0)
+                i_stack.pop(0)
+                break
+            else:
+                stack.append(o_stack.pop(0))
+
+        #
+        if not o_stack: #如果出栈为空
             while stack:
-                if stack.pop() != pop_stack.pop(0):
+                if stack.pop(0) != i_stack.pop(0):
                     return False
 
-    if not pop_stack:    # 如果
+
+    if not i_stack:   # 如果进栈为空
         return True
 
     return False
@@ -53,4 +54,4 @@ def pop_order(push_stack, pop_stack):
 
 
 if __name__ == '__main__':
-    print(pop_order([1, 2, 3], [2, 3, 1]))
+    print(is_order([1, 2, 3], [2, 3, 5]))
